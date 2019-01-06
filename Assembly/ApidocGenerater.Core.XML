@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ApidocGenerater.Core</name>
+    </assembly>
+    <members>
+        <member name="T:ApidocGenerater.Core.Entity.ContractApi">
+            <summary>
+            契约
+            </summary>
+        </member>
+        <member name="P:ApidocGenerater.Core.Entity.ContractApi.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:ApidocGenerater.Core.Entity.ContractApi.Comments">
+            <summary>
+            注释
+            </summary>
+        </member>
+        <member name="P:ApidocGenerater.Core.Entity.ContractApi.InParm">
+            <summary>
+            入参
+            </summary>
+        </member>
+        <member name="P:ApidocGenerater.Core.Entity.ContractApi.OutParm">
+            <summary>
+            出参
+            </summary>
+        </member>
+        <member name="P:ApidocGenerater.Core.Entity.ContractApi.Namespace">
+            <summary>
+            命名空间
+            </summary>
+        </member>
+        <member name="T:ApidocGenerater.Core.Entity.DocEntity">
+            <summary>
+            文档
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,59 @@
+﻿@model MyCodeGenerater.Core.Entity.TableEntity
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>实体映射生成</title>
+</head>
+<body>
+    <table width="100%">
+        <tr>
+            <td width="90">数据库连接:</td>
+            <td><input id="tbConnectString" name="tbConnectString" type="text" value="@ViewBag.Conn" style="width:100%;" /></td>
+        </tr>
+        <tr>
+            <td>表名:</td>
+            <td><input id="tbTable" name="tbTable" type="text" value="@ViewBag.TableName" style="width:300px;" /></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="button" value="生成" onclick="getInfo()" />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" id="content">
+                @if (Model != null && Model.Name != "UNTABLE")
+                {
+                    @Html.Raw("///&nbsp;&lt;summary&gt;")  <br />
+                    @Html.Raw("///&nbsp;" + Model.Comments)<br />
+                    @Html.Raw("///&nbsp;&lt;/summary&gt;") <br />
+                    @Html.Raw("public class " + Model.PascalName + "Map : ArbitrationMapBase<ApplyModel, string>, IRegisterMapping") <br />
+                    @Html.Raw("{") <br />
+                    @Html.Raw("&nbsp;&nbsp;&nbsp;public " + Model.PascalName + "Map()") <br />
+                    @Html.Raw("&nbsp;&nbsp;&nbsp;{") <br />
+                    @Html.Raw("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ToTable(\"" + Model.Name + "\".ToUpper());") <br />
+                    foreach (var item in Model.Columns)
+                    {
+                        @Html.Raw("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Property(i => i." + item.PascalName+").HasColumnName(\""+item.Name+ "\").HasColumnType(\"" + item.DBType + "\")"+(item.NullAble=="N"? ".IsRequired()" : "")+";") <br />
+                    }
+                    @Html.Raw("&nbsp;&nbsp;&nbsp;}") <br />
+                    @Html.Raw("}") <br />
+                }
+            </td>
+        </tr>
+    </table>
+    <script src="~/Scripts/copy.js"></script>
+    <script>
+        function getInfo() {
+            var conn = document.getElementById("tbConnectString").value;
+            var tableName = document.getElementById("tbTable").value;
+            window.location.href = "@Url.Action("RegisterMapping")" + "?conn=" + conn + "&&tableName=" + tableName;
+        }
+    </script>
+</body>
+</html>

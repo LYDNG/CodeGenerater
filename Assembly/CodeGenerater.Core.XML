@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CodeGenerater.Core</name>
+    </assembly>
+    <members>
+        <member name="M:CodeGenerater.Core.GeneraterFacade.#ctor(System.String)">
+            <summary>
+            生成器构造
+            </summary>
+            <param name="connstring">数据库串</param>
+        </member>
+        <member name="M:CodeGenerater.Core.GeneraterFacade.GetModel">
+            <summary>
+            获取模型
+            </summary>
+            <returns>数据库模型</returns>
+        </member>
+        <member name="M:CodeGenerater.Core.GeneraterFacade.GetTable(System.String)">
+            <summary>
+            获取表结构
+            </summary>
+            <param name="tableName">表名</param>
+            <returns>表模型</returns>
+        </member>
+        <member name="M:CodeGenerater.Core.DefaultTypeConvertor.OtherCheck(System.String)">
+            <summary>
+            当常规类型转换失败执行扩展类型检查
+            （此方法将执行在返回数据前）
+            </summary>
+            <param name="dbtype">数据库类型</param>
+            <param name="isok">是否已找到方案</param>
+            <returns>默认直接返回数据库类型</returns>
+        </member>
+    </members>
+</doc>

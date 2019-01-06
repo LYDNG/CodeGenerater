@@ -1,0 +1,54 @@
+﻿@model MyCodeGenerater.Core.Entity.TableEntity
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>实体映射生成</title>
+</head>
+<body>
+    <table width="100%">
+        <tr>
+            <td width="90">数据库连接:</td>
+            <td><input id="tbConnectString" name="tbConnectString" type="text" value="@ViewBag.Conn" style="width:100%;" /></td>
+        </tr>
+        <tr>
+            <td>表名:</td>
+            <td><input id="tbTable" name="tbTable" type="text" value="@ViewBag.TableName" style="width:300px;" /></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="button" value="生成" onclick="getInfo()" />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" id="content">
+                @if (Model != null && Model.Name != "UNTABLE")
+                {
+                    @Html.Raw(ViewBag.SelectStr) <br />
+                }
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @if (Model != null && Model.Name != "UNTABLE")
+                {
+                    @Html.Raw(ViewBag.InsertStr) <br />
+                }
+            </td>
+        </tr>
+    </table>
+    <script src="~/Scripts/copy.js"></script>
+    <script>
+        function getInfo() {
+            var conn = document.getElementById("tbConnectString").value;
+            var tableName = document.getElementById("tbTable").value;
+            window.location.href = "@Url.Action("AllColumn")" + "?conn=" + conn + "&&tableName=" + tableName;
+        }
+    </script>
+</body>
+</html>

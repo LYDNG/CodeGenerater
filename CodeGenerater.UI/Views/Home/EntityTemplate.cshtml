@@ -1,0 +1,74 @@
+﻿@model MyCodeGenerater.Core.Entity.TableEntity
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>数据库实体生成</title>
+</head>
+<body>
+    <table width="100%">
+        <tr>
+            <td width="90">数据库连接:</td>
+            <td><input id="tbConnectString" name="tbConnectString" type="text" value="@ViewBag.Conn" /></td>
+        </tr>
+        <tr>
+            <td>表名:</td>
+            <td><input id="tbTable" name="tbTable" type="text" value="@ViewBag.TableName" style="width:300px;" /></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="button" value="生成" onclick="getInfo()" />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" id="content">
+                @if (Model != null && Model.Name != "UNTABLE")
+                {
+                    @Html.Raw("///&nbsp;&lt;summary&gt;")  <br />
+                    @Html.Raw("///&nbsp;" + Model.Comments)<br />
+                    @Html.Raw("///&nbsp;&lt;/summary&gt;") <br />
+                    @Html.Raw("public class " + Model.PascalName + "Model") <br />
+                    @Html.Raw("{") <br />
+                    foreach (var item in Model.Columns)
+                    {
+                        if (item.Name.ToLower() == "id")
+                        {
+                            continue;
+                        }
+                        <br />
+                        @Html.Raw("&nbsp;&nbsp;&nbsp;///&nbsp;&lt;summary&gt;") <br />
+                        @Html.Raw("&nbsp;&nbsp;&nbsp;///&nbsp;" + item.Comments) <br />
+                        @Html.Raw("&nbsp;&nbsp;&nbsp;///&nbsp;&lt;/summary&gt;") <br />
+                        @Html.Raw("&nbsp;&nbsp;&nbsp;public " + item.CSharpType +" "+ item.PascalName + "{ get; set; }") <br />
+                    }
+                    @Html.Raw("}") <br />
+
+
+
+                    <br />
+                    foreach (var item in Model.Columns)
+                    {
+                        @Html.Raw("result.Add(\"" + item.PascalName + "\",\"" + item.Name + "\");") <br />
+                    }
+                }
+            </td>
+        </tr>
+    </table>
+    <script src="~/Scripts/copy.js"></script>
+    <script>
+        function getInfo() {
+            var conn = document.getElementById("tbConnectString").value;
+            var tableName = document.getElementById("tbTable").value;
+            window.location.href = "@Url.Action("EntityTemplate")" + "?conn=" + conn + "&&tableName=" + tableName;
+        }
+        function copyInfo() {
+            document.getElementById("content").select();
+        }
+    </script>
+</body>
+</html>
